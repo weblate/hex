@@ -9,6 +9,8 @@ import { watch, Ref, ref } from 'vue';
 import { useSeoMeta } from '@unhead/vue';
 import { InputValidation, toInputClass } from '../../../vue/formUtils';
 import { authChangePassword } from '@client/apiClient';
+import { availableLocales, setLocale } from '../../../../shared/app/i18n';
+import i18next from 'i18next';
 
 useSeoMeta({
     robots: 'noindex',
@@ -96,19 +98,34 @@ const submitPasswordChange = async () => {
 
 <template>
     <div class="container my-3">
-        <h2>Settings</h2>
+        <h2>{{ $t('player_settings.title') }}</h2>
 
-        <h3>Theme</h3>
+        <h3>{{ $t('language') }}</h3>
+
+        <div class="row">
+            <div class="col-sm-8 col-md-4">
+                <select class="form-select">
+                    <option
+                        v-for="(label, locale) in availableLocales"
+                        :key="locale"
+                        @click="() => setLocale(locale)"
+                        :selected="locale === i18next.language"
+                    >{{ label }}</option>
+                </select>
+            </div>
+        </div>
+
+        <h3>{{ $t('background_theme.title') }}</h3>
 
         <div class="btn-group" role="group" aria-label="Dark or light theme switcher">
             <input type="radio" class="btn-check" v-model="selectedTheme" value="light" id="btn-theme-light" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btn-theme-light"><BIconBrightnessHighFill /> Light</label>
+            <label class="btn btn-outline-primary" for="btn-theme-light"><BIconBrightnessHighFill /> {{ $t('background_theme.light') }}</label>
 
             <input type="radio" class="btn-check" v-model="selectedTheme" value="dark" id="btn-theme-dark" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btn-theme-dark"><BIconMoonStarsFill /> Dark</label>
+            <label class="btn btn-outline-primary" for="btn-theme-dark"><BIconMoonStarsFill /> {{ $t('background_theme.dark') }}</label>
 
             <input type="radio" class="btn-check" v-model="selectedTheme" value="auto" id="btn-theme-auto" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btn-theme-auto"><BIconCircleHalf /> Auto</label>
+            <label class="btn btn-outline-primary" for="btn-theme-auto"><BIconCircleHalf /> {{ $t('background_theme.auto') }}</label>
         </div>
 
         <h3>Confirm move</h3>

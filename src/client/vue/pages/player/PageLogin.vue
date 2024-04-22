@@ -59,7 +59,7 @@ const onSubmit = async () => {
         <div class="row">
             <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                 <form @submit="e => { e.preventDefault(); onSubmit(); }">
-                    <h2 class="mt-4 text-center">Log in</h2>
+                    <h2 class="mt-4 text-center">{{ $t('log_in') }}</h2>
 
                     <div class="mb-3">
                         <label for="form-pseudo" class="form-label">Username</label>
